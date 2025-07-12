@@ -11,17 +11,13 @@ const useFetch = (cb, options = {}) => {
   const fn = async (...args) => {
     setLoading(true);
     setError(null);
-    console.log("1 >>> Fetching started with args");
 
     try {
       const supabaseAccessToken = await session.getToken({
         template: "supabase",
       });
 
-      console.log("2 >>> Got Supabase token:", supabaseAccessToken);
-
       const response = await cb(supabaseAccessToken, options, ...args);
-      console.log("3 >>> response <<>>", response);
       setData(response);
       setError(null);
     } catch (error) {
