@@ -3,11 +3,12 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/clerk-react';
 import { Button } from './ui/button';
 import { BriefcaseBusiness, Heart } from 'lucide-react';
+import { useClerk } from '@clerk/clerk-react';
 
 const Header = () => {
-
   const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams();
+  const { user } = useClerk();
 
   const handleLayerClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -38,11 +39,13 @@ const Header = () => {
             <Button variant="outline" className="cursor-pointer" onClick={() => setShowSignIn(true)}> Login </Button>
           </SignedOut>
           <SignedIn>
-            <Link to="/post-job">
-              <Button variant="destructive" className="rounded-full cursor-pointer">
-                Post a job
-              </Button>
-            </Link>
+            {user && user.unsafeMetadata.role === "recruiter" && (
+              <Link to="/post-job">
+                <Button variant="destructive" className="rounded-full cursor-pointer">
+                  Post a job
+                </Button>
+              </Link>
+            )}
             <UserButton
               appearance={{
                 elements: {

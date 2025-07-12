@@ -1,10 +1,9 @@
 import React from 'react'
 
-const JobPage
- = () => {
+const JobPage= () => {
   return (
-    <div>JobPage
-        
+    <div>
+        <h1>uenvekomvuenvoemvienviuenv</h1>
     </div>
   )
 }

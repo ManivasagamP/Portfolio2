@@ -1,0 +1,33 @@
+import supabaseClient from "@/utils/supabase";
+
+// Fetch Jobs
+export async function getJobs(token, { location, company_id, searchQuery }) {
+  console.log("4 >>> getJobs called with:", { token });
+  const supabase = await supabaseClient(token);
+  console.log("5 >>> Supabase client initialized");
+
+  let query = supabase
+    .from("jobs")
+    .select("*");
+
+  if (location) {
+    query = query.eq("location", location);
+  }
+
+  if (company_id) {
+    query = query.eq("company_id", company_id);
+  }
+
+  if (searchQuery) {
+    query = query.ilike("title", `%${searchQuery}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching Jobs:", error);
+    return null;
+  }
+
+  return data;
+}

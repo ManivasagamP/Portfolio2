@@ -7,7 +7,7 @@ import { shadesOfPurple } from '@clerk/themes'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-console.log("Clerk Publishable Key:", PUBLISHABLE_KEY)
+// console.log("Clerk Publishable Key:", PUBLISHABLE_KEY)
 
 if (!PUBLISHABLE_KEY) {
   console.log("Clerk Publishable Key is not set in the environment variables.")
