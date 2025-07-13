@@ -40,7 +40,7 @@ const JobListing = () => {
     if (isLoaded) fnCompanies();
   }, [isLoaded]);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (isLoaded) fnJobs();
   }, [isLoaded, location, company_id, searchQuery]);
 
@@ -83,9 +83,9 @@ const JobListing = () => {
         </Button>
       </form>
 
-      <div >
+      <div className='flex flex-col sm:flex-row gap-2 '>
         <Select value={location} onValueChange={(value) => setLocation(value)}>
-          <SelectTrigger className="w-1/9 bg-black/50 text-white border-gray-700">
+          <SelectTrigger className=" bg-black/50 text-white border-gray-700">
             <SelectValue placeholder="Filter by Location" />
           </SelectTrigger>
           <SelectContent>
@@ -102,7 +102,7 @@ const JobListing = () => {
         </Select>
 
         <Select value={company_id} onValueChange={(value) => setCompany_id(value)}>
-          <SelectTrigger  className="w-1/9 bg-black/50 text-white border-gray-700">
+          <SelectTrigger  className=" bg-black/50 text-white border-gray-700">
             <SelectValue placeholder="Filter by Company" />
           </SelectTrigger>
           <SelectContent>
@@ -118,7 +118,7 @@ const JobListing = () => {
           </SelectContent>
         </Select>
 
-        <Button onClick={clearFilters} variant="destructive" className="w-1/9 ">
+        <Button onClick={clearFilters} variant="destructive">
           Clear Filters
         </Button>
       </div>
