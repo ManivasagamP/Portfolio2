@@ -40,14 +40,14 @@ export async function saveJob(token, { alreadySaved }, saveData) {
       .delete()
       .eq("job_id", saveData.job_id)
 
-    if(deleteError){
+    if (deleteError) {
       console.error("Error unsaving Job:", deleteError);
       return null;
     }
 
     return data;
-  }else{
-    const {data, insertError } = await supabase
+  } else {
+    const { data, insertError } = await supabase
       .from("saved_jobs")
       .insert([saveData])
       .select();
@@ -58,6 +58,42 @@ export async function saveJob(token, { alreadySaved }, saveData) {
     }
 
 
+  }
+
+  return data;
+}
+
+export async function getSingleJob(token, { job_id }) {
+  const supabase = await supabaseClient(token);
+
+  let query = supabase
+    .from("jobs")
+    .select("*, company: companies(name, logo_url), applications: applications(*)")
+    .eq("id", job_id)
+    .single();
+
+  const { data, error: singleJobError } = await query;
+
+  if (singleJobError) {
+    console.error("Error fetching single job:", singleJobError);
+    return null;
+  }
+
+  return data;
+}
+
+export async function updateHiringStatus(token, { job_id }, isOpen) {
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .update({ isOpen })
+    .eq("id", job_id)
+    .select();
+
+  if (error) {
+    console.error("Error Updating Hiring Status:", error);
+    return null;
   }
 
   return data;
