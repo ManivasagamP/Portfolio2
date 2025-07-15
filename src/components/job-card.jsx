@@ -5,7 +5,8 @@ import { Heart, MapPin, MapPinIcon, Trash2Icon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import useFetch from '@/hooks/use-fetch';
-import { saveJob } from '@/api/apiJobs';
+import { deleteJob, saveJob } from '@/api/apiJobs';
+import Loader from './loader';
 
 const JobCard = ({
     job,
@@ -18,7 +19,7 @@ const JobCard = ({
         fn: fnSavedJob,
         data: savedJob,
         loading: loadingSavedJob
-    } = useFetch(saveJob,{
+    } = useFetch(saveJob, {
         alreadySaved: saved
     });
 
@@ -33,12 +34,22 @@ const JobCard = ({
         onJobSaved();
     }
 
+    const { loading: loadingDeleteJob, fn: fnDeleteJob } = useFetch(deleteJob, {
+        job_id: job.id
+    })
+
+    const handleDeleteJob = async () => {
+        await fnDeleteJob()
+        onJobSaved();
+    }
+
     useEffect(() => {
         if (savedJob !== undefined) setSaved(savedJob?.length > 0);
     }, [savedJob]);
 
     return (
         <Card className="border-gray-500">
+            {loadingDeleteJob && <Loader />}
             <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     {job.title}
@@ -49,6 +60,7 @@ const JobCard = ({
                                 fill='red'
                                 size={18}
                                 className='text-red-300 cursor-pointer'
+                                onClick={handleDeleteJob}
                             />
                         )
                     }
@@ -62,11 +74,11 @@ const JobCard = ({
                         <MapPinIcon size={15} /> {job.location}
                     </div>
                 </div>
-                <hr className='border-gray-500'/>
+                <hr className='border-gray-500' />
                 {job.description.substring(0, job.description.indexOf('.'))}...
             </CardContent>
             <CardFooter className="flex gap-2">
-                <Link to={`/jobs/${job.id}`} className='flex-1'>
+                <Link to={`/job/${job.id}`} className='flex-1'>
                     <Button className={'w-full cursor-pointer bg-black/20 border-gray-500'} variant='outline'>
                         More Details
                     </Button>

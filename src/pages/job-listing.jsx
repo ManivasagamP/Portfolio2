@@ -74,7 +74,7 @@ const JobListing = () => {
       >
         <Input
           type="text"
-          placeHolder="Search jobs by title..."
+          placeholder="Search jobs by title..."
           name="search-query"
           className="text-white h-full flex-1 px-4 bg-black/50 border-none"
         />
