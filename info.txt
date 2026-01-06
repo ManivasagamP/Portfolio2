@@ -1,0 +1,24 @@
+📋 Three-Point Resume Summary:
+
+Full-Stack Job Portal Platform with Dual User Experience - Highlighting the dual-role authentication system and personalized user experiences for both recruiters and candidates.
+
+Advanced Job Management System with Real-Time Application Tracking - Emphasizing the complete job lifecycle management, Markdown editor, location filtering, and application tracking features.
+
+Scalable Backend Architecture with Supabase Integration - Showcasing the modern backend infrastructure with real-time data synchronization and efficient API design.
+
+
+🛠️ Main Technology Stack:
+
+Core Technologies:
+React 19.1.0 with Vite 7.0.0
+Supabase (Backend & Database)
+Clerk (Authentication)
+Tailwind CSS 4.1.11 (Styling)
+React Router DOM 7.6.3 (Routing)
+
+Key Libraries:
+React Hook Form + Zod (Form validation)
+Radix UI (Component library)
+Lucide React (Icons)
+Markdown Editor (Job requirements)
+country-state-city (Location data)
